@@ -13,6 +13,7 @@ interface ExperienceProps {
   mixFactor: number;
   colors: TreeColors;
   inputRef: React.MutableRefObject<{ x: number, y: number }>;
+  userImages?: string[];
 }
 
 // STATIC CONSTANTS FOR STABILITY
@@ -83,9 +84,14 @@ const SceneController: React.FC<{ inputRef: React.MutableRefObject<{ x: number, 
     return null;
 };
 
-const SceneContent: React.FC<ExperienceProps> = ({ mixFactor, colors, inputRef }) => {
+const SceneContent: React.FC<ExperienceProps> = ({ mixFactor, colors, inputRef, userImages }) => {
   const groupRef = useRef<THREE.Group>(null);
   
+  // Dynamic Photo Count Logic:
+  // If images exist, use their count (up to max, which is handled by App slice).
+  // If no images, default to 10 "blank" frames.
+  const photoCount = (userImages && userImages.length > 0) ? userImages.length : 10;
+
   return (
     <>
       <SceneController inputRef={inputRef} groupRef={groupRef} />
@@ -151,7 +157,8 @@ const SceneContent: React.FC<ExperienceProps> = ({ mixFactor, colors, inputRef }
         <Ornaments 
             mixFactor={mixFactor} 
             type="PHOTO" 
-            count={30} 
+            count={photoCount} 
+            userImages={userImages}
         />
       </group>
 

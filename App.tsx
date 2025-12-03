@@ -13,6 +13,10 @@ const App: React.FC = () => {
   
   const [gestureDetected, setGestureDetected] = useState(false);
   const [debugMode, setDebugMode] = useState(false);
+  
+  // Image Upload State
+  const [userImages, setUserImages] = useState<string[]>([]);
+  const fileInputRef = useRef<HTMLInputElement>(null);
 
   // Wrap in useCallback to prevent new function creation on every render
   const handleGesture = useCallback((data: HandGesture) => {
@@ -44,9 +48,35 @@ const App: React.FC = () => {
       setTargetMix(prev => prev === 1 ? 0 : 1);
   };
 
+  const handleUploadClick = () => {
+      fileInputRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      if (e.target.files && e.target.files.length > 0) {
+          const files = Array.from(e.target.files).slice(0, 30); // Limit to 30
+          const urls = files.map(file => URL.createObjectURL(file));
+          setUserImages(prev => {
+              // Revoke old URLs to prevent memory leaks (optional but good practice)
+              prev.forEach(url => URL.revokeObjectURL(url));
+              return urls;
+          });
+      }
+  };
+
   return (
     <div className="relative w-full h-screen bg-black overflow-hidden" onMouseMove={handleMouseMove}>
       
+      {/* Hidden File Input */}
+      <input 
+        type="file" 
+        ref={fileInputRef}
+        onChange={handleFileChange}
+        accept="image/*"
+        multiple
+        className="hidden"
+      />
+
       {/* CENTER TITLE - Ethereal Silver Script */}
       {/* Layer: z-0 (Background layer, behind the tree) */}
       <div className="absolute top-[5%] left-0 w-full flex justify-center pointer-events-none z-0">
@@ -72,7 +102,18 @@ const App: React.FC = () => {
             mixFactor={targetMix}
             colors={colors} 
             inputRef={inputRef} 
+            userImages={userImages}
         />
+      </div>
+
+      {/* TOP RIGHT - UPLOAD BUTTON */}
+      <div className="absolute top-6 right-6 z-20 pointer-events-auto">
+          <button 
+            onClick={handleUploadClick}
+            className="bg-black/40 backdrop-blur-md border border-[#d4af37]/50 text-[#d4af37] font-luxury text-xs px-6 py-2 rounded hover:bg-[#d4af37] hover:text-black transition-all duration-300 uppercase tracking-widest shadow-[0_0_15px_rgba(212,175,55,0.2)]"
+          >
+              Upload Photos
+          </button>
       </div>
 
       {/* BOTTOM RIGHT CONTROLS & STATUS */}
