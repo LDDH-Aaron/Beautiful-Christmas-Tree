@@ -21,24 +21,24 @@ interface ExperienceProps {
 
 // COLORS FOR REALISTIC OBJECTS
 const BALL_COLORS = [
-    '#8B0000', // Dark Red
-    '#D32F2F', // Bright Red
-    '#1B5E20', // Dark Green
-    '#D4AF37', // Gold 
-    '#C0C0C0', // Silver
-    '#191970'  // Midnight Blue
+    '#FF0000', // Bright Red
+    '#FF1744', // Vivid Red
+    '#00DD00', // Bright Green
+    '#FFD700', // Gold
+    '#FF69B4', // Hot Pink
+    '#00BFFF'  // Deep Sky Blue
 ]; 
 
 const BOX_COLORS = [
-    '#800000', // Maroon
-    '#1B5E20', // Forest Green
-    '#D4AF37', // Gold
+    '#FF0000', // Bright Red
+    '#00DD00', // Bright Green
+    '#FFD700', // Bright Gold
     '#FFFFFF', // White
-    '#4B0082', // Indigo/Deep Purple
-    '#2F4F4F', // Dark Slate Gray
-    '#008080', // Teal
-    '#8B4513', // Bronze/SaddleBrown
-    '#DC143C'  // Crimson
+    '#FF1493', // Deep Pink
+    '#00CED1', // Dark Turquoise
+    '#FF8C00', // Bright Orange
+    '#FF69B4', // Hot Pink
+    '#FF4500'  // Orange Red
 ];
 
 const STAR_COLORS = ['#FFD700', '#FDB931']; // Gold variations

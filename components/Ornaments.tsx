@@ -672,12 +672,12 @@ const Ornaments: React.FC<OrnamentsProps> = ({ mixFactor, type, count, colors, s
         <instancedMesh ref={meshRef} args={[geometry, undefined, count]}>
             <meshPhysicalMaterial 
                 map={candyTexture}
-                roughness={type === 'CANDY' ? 0.2 : 0.12} 
-                metalness={type === 'CRYSTAL' ? 1.0 : 0.65} 
+                roughness={type === 'CANDY' ? 0.2 : type === 'BALL' ? 0.1 : 0.12} 
+                metalness={type === 'CRYSTAL' ? 1.0 : type === 'BALL' ? 0.8 : 0.65} 
                 emissive={type === 'CRYSTAL' ? "#ffffff" : "#000000"}
-                emissiveIntensity={type === 'CRYSTAL' ? 0.9 : 0.18}
-                clearcoat={type === 'BALL' ? 0.7 : 0.0}
-                clearcoatRoughness={0.08}
+                emissiveIntensity={type === 'CRYSTAL' ? 0.9 : type === 'BALL' ? 0.25 : 0.18}
+                clearcoat={type === 'BALL' ? 0.9 : 0.0}
+                clearcoatRoughness={0.05}
                 toneMapped={false}
             />
         </instancedMesh>
