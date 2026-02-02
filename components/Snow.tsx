@@ -55,8 +55,8 @@ const snowFragmentShader = `
 `;
 
 const Snow: React.FC<{ mixFactor: number }> = ({ mixFactor }) => {
-  // RESTORED: Full snow count
-  const count = 3000;
+  // Tuned snow count for balance with bloom and performance
+  const count = 2200;
 
   const pointsRef = useRef<THREE.Points>(null);
   const materialRef = useRef<THREE.ShaderMaterial>(null);
@@ -76,9 +76,9 @@ const Snow: React.FC<{ mixFactor: number }> = ({ mixFactor }) => {
         
         sc[i] = Math.random() * 2 + 1;
         
-        vel[i*3] = Math.random() * 0.5 + 0.2; // Drift freq
-        vel[i*3+1] = Math.random() * 2.0 + 1.0; // Fall speed
-        vel[i*3+2] = Math.random() * 0.5 + 0.2;
+        vel[i*3] = Math.random() * 0.45 + 0.15; // Drift freq
+        vel[i*3+1] = Math.random() * 1.2 + 0.6; // Fall speed (slower)
+        vel[i*3+2] = Math.random() * 0.45 + 0.15;
     }
     return { positions: pos, scales: sc, velocities: vel };
   }, [count]);

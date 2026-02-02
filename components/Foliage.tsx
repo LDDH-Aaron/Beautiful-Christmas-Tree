@@ -94,7 +94,7 @@ const Foliage: React.FC<FoliageProps> = ({ mixFactor, colors }) => {
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uMix: { value: 1 },
-    uSize: { value: 4.0 }, 
+    uSize: { value: 5.5 }, 
     uColorBottom: { value: new THREE.Color(colors.bottom) },
     uColorTop: { value: new THREE.Color(colors.top) }
   }), []);
@@ -147,6 +147,7 @@ const Foliage: React.FC<FoliageProps> = ({ mixFactor, colors }) => {
         uniforms={uniforms}
         transparent
         depthWrite={false}
+        blending={THREE.AdditiveBlending}
       />
     </points>
   );

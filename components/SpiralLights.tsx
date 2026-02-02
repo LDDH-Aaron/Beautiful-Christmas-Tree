@@ -8,7 +8,7 @@ interface SpiralLightsProps {
 }
 
 const SpiralLights: React.FC<SpiralLightsProps> = ({ mixFactor }) => {
-  const count = 300;
+  const count = 420;
   const meshRef = useRef<THREE.InstancedMesh>(null);
   const dummy = useMemo(() => new THREE.Object3D(), []);
   const currentMixRef = useRef(1);
@@ -18,16 +18,21 @@ const SpiralLights: React.FC<SpiralLightsProps> = ({ mixFactor }) => {
 
   useLayoutEffect(() => {
      if (!meshRef.current) return;
-     
-     const color = new THREE.Color("#fffae0"); // Warm White
-     
+     const palette = [
+       new THREE.Color('#fffae0'), // Warm white
+       new THREE.Color('#ffd1f5'), // soft pink
+       new THREE.Color('#a0f7ff'), // cyan
+       new THREE.Color('#fff3b0')  // pale yellow
+     ];
+
      for(let i=0; i<count; i++) {
-         meshRef.current.setColorAt(i, color);
-         
-         dummy.position.set(target[i*3], target[i*3+1], target[i*3+2]);
-         dummy.scale.setScalar(0.15);
-         dummy.updateMatrix();
-         meshRef.current.setMatrixAt(i, dummy.matrix);
+       const color = palette[i % palette.length];
+       meshRef.current.setColorAt(i, color);
+
+       dummy.position.set(target[i*3], target[i*3+1], target[i*3+2]);
+       dummy.scale.setScalar(0.12);
+       dummy.updateMatrix();
+       meshRef.current.setMatrixAt(i, dummy.matrix);
      }
      
      if (meshRef.current.instanceColor) meshRef.current.instanceColor.needsUpdate = true;
@@ -71,8 +76,8 @@ const SpiralLights: React.FC<SpiralLightsProps> = ({ mixFactor }) => {
 
   return (
     <instancedMesh ref={meshRef} args={[undefined, undefined, count]}>
-      <sphereGeometry args={[1, 8, 8]} />
-      <meshBasicMaterial color="#fffae0" toneMapped={false} />
+      <sphereGeometry args={[1, 10, 10]} />
+      <meshBasicMaterial toneMapped={false} transparent={true} opacity={0.95} />
     </instancedMesh>
   );
 };

@@ -248,8 +248,9 @@ const SceneContent: React.FC<ExperienceProps> = ({ mixFactor, colors, inputRef, 
     <>
       <SceneController inputRef={inputRef} groupRef={groupRef} />
       
-      <ambientLight intensity={0.4} />
-      <spotLight position={[20, 20, 20]} angle={0.4} penumbra={1} intensity={2.0} color="#fff5d0" castShadow />
+    <ambientLight intensity={0.6} color="#eaf8ec" />
+    <hemisphereLight skyColor="#fff6e6" groundColor="#08311a" intensity={0.12} />
+    <spotLight position={[20, 20, 20]} angle={0.4} penumbra={1} intensity={1.8} color="#fff7e0" castShadow />
       <pointLight position={[-10, 5, -10]} intensity={1.2} color="#00ff00" />
       <pointLight position={[10, -5, 10]} intensity={1.2} color="#ff0000" />
       <pointLight position={[0, 10, 10]} intensity={0.5} color="#ffffff" />
@@ -311,13 +312,13 @@ const SceneContent: React.FC<ExperienceProps> = ({ mixFactor, colors, inputRef, 
         />
       </group>
 
-      <EffectComposer enableNormalPass={false} multisampling={0}>
-        <Bloom 
-            luminanceThreshold={0.9} 
-            mipmapBlur 
-            intensity={1.2} 
-            radius={0.6}
-        />
+            <EffectComposer enableNormalPass={false} multisampling={0}>
+                <Bloom 
+                        luminanceThreshold={0.7} 
+                        mipmapBlur 
+                        intensity={1.6} 
+                        radius={0.8}
+                />
         <Vignette eskil={false} offset={0.1} darkness={1.1} />
       </EffectComposer>
     </>

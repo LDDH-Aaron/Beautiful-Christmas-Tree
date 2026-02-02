@@ -87,15 +87,21 @@ const TopStar: React.FC<TopStarProps> = ({ mixFactor }) => {
         {/* Visuals Group */}
         <group ref={visualRef}>
             {/* The Physical Star - Removed castShadow to prevent tree flickering */}
-            <mesh ref={starMeshRef} geometry={geometry}>
+                <mesh ref={starMeshRef} geometry={geometry}>
                 <meshStandardMaterial 
                     color="#FFD700" 
                     emissive="#FFD700"
-                    emissiveIntensity={2.0} // Very bright
-                    roughness={0.1}
-                    metalness={0.9}
+                    emissiveIntensity={2.8} // Brighter for stronger glow
+                    roughness={0.06}
+                    metalness={0.95}
                     toneMapped={false} // Allow it to bloom heavily
                 />
+            </mesh>
+
+            {/* Soft glow shell for star */}
+            <mesh>
+                <sphereGeometry args={[1.4, 16, 16]} />
+                <meshBasicMaterial color="#FFD760" transparent={true} opacity={0.12} blending={THREE.AdditiveBlending} toneMapped={false} />
             </mesh>
         </group>
 

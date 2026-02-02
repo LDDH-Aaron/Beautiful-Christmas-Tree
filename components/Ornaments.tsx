@@ -668,17 +668,20 @@ const Ornaments: React.FC<OrnamentsProps> = ({ mixFactor, type, count, colors, s
       )
   }
 
-  return (
-    <instancedMesh ref={meshRef} args={[geometry, undefined, count]}>
-      <meshStandardMaterial 
-        map={candyTexture}
-        roughness={type === 'CANDY' ? 0.2 : 0.15} 
-        metalness={type === 'CRYSTAL' ? 0.9 : 0.5} 
-        emissive={type === 'CRYSTAL' ? "#112244" : "#000000"}
-        emissiveIntensity={0.2}
-      />
-    </instancedMesh>
-  );
+    return (
+        <instancedMesh ref={meshRef} args={[geometry, undefined, count]}>
+            <meshPhysicalMaterial 
+                map={candyTexture}
+                roughness={type === 'CANDY' ? 0.2 : 0.12} 
+                metalness={type === 'CRYSTAL' ? 1.0 : 0.65} 
+                emissive={type === 'CRYSTAL' ? "#ffffff" : "#000000"}
+                emissiveIntensity={type === 'CRYSTAL' ? 0.9 : 0.18}
+                clearcoat={type === 'BALL' ? 0.7 : 0.0}
+                clearcoatRoughness={0.08}
+                toneMapped={false}
+            />
+        </instancedMesh>
+    );
 };
 
 export default Ornaments;
